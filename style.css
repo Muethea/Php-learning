@@ -4,6 +4,22 @@
   box-sizing: border-box;
 }
 
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* LOGIN LAYOUT */
+
+.back {
+  background-image: url('imgs/books.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
 .form-email-pass {
   display: flex;
   gap: 1rem;
@@ -13,7 +29,7 @@
 
 input {
   border: 0.1rem solid rgba(87, 85, 85, 0.193);
-  padding: 0.6rem;
+  padding: 0.7rem;
   outline: none;
 }
 
@@ -28,7 +44,16 @@ form {
   align-items: center;
   gap: 2rem;
 }
+form h1 {
+  font-family: 'Rubik', sans-serif;
+  text-transform: uppercase;
+  color: white;
+  font-weight: 700;
+}
 
+form h1 > span {
+  background: #4810c264;
+}
 .btn {
   width: 25rem;
   background-color: #4910c2;
@@ -43,4 +68,37 @@ form {
 
 body {
   overflow: hidden;
+}
+
+ul {
+  height: 60px;
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.menu {
+  display: flex;
+  gap: 2rem;
+}
+/* DASHBOARD LAYOUT */
+
+.center {
+  height: 50rem;
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.btns button {
+  background: none;
+  padding: 1rem;
 }
