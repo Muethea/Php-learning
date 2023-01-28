@@ -1,6 +1,5 @@
 <?php
 
-
 include_once "dbconect.php";
 
 session_start();
@@ -24,7 +23,7 @@ session_start();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <link rel="stylesheet" href="dashboard.css">
-  <title>Dashboard</title>
+  <title>Pesquisar de estudantes</title>
 </head>
 
 <body>
@@ -63,14 +62,60 @@ session_start();
     </div>
   </nav>
 
-  <div class="container mx-auto conteudo">
-    <h1>GERENCIAMENTO DE ESTUDANTES</h1>
-    <div class="btns">
-      <button class="cadastro">
-        <a href="registrar.php">Registrar</a></button>
-      <button class="pesuisa"><a href="pesquisar.php">Pesquisar estudante</a></button>
-    </div>
+
+  <div class="container formulario">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Email</th>
+          <th scope="col">Contacto</th>
+          <th scope="col">Endereço</th>
+          <th scope="col">Curso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <?php
+
+          $select = $pdo->prepare("SELECT * FROM tbl_estudantes");
+
+          $select->execute();
+
+          while($row = $select->fetch(PDO::FETCH_OBJ)){
+
+            echo "
+            <tr>
+            <td>$row->id</td>
+            <td>$row->nome</td>
+            <td>$row->email</td>
+            <td>$row->telefone</td>
+            <td>$row->endereco</td>
+            <td>$row->curso</td>
+            </tr>
+            
+            
+            
+            ";
+          }
+
+
+?>
+
+
+
+      </tbody>
+    </table>
+
+
+
   </div>
+
+  <!-- DATABASE -->
+
+
+
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
@@ -78,6 +123,30 @@ session_start();
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
     integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous">
   </script>
+
+  <script>
+  var phoneInput = document.getElementById("inputPhone");
+
+  phoneInput.addEventListener("input", function() {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+  </script>
+</body>
+
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listar</title>
+</head>
+
+<body>
+
 </body>
 
 </html>

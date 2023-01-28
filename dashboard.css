@@ -1,0 +1,35 @@
+.conteudo {
+  height: 50rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.menu {
+  display: flex;
+  align-items: center;
+  background-color: #4910c2;
+}
+
+.menu a {
+  color: #fff;
+}
+
+.menu a:hover {
+  color: rgb(210, 150, 150);
+}
+
+body {
+  overflow: hidden;
+}
+
+.formulario {
+  height: 34rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formulario input {
+  width: 32rem;
+}

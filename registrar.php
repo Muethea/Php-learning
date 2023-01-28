@@ -10,6 +10,41 @@ session_start();
     exit;
   }
 
+  if(isset($_POST["btncadastrar"])){
+
+    $nome = $_POST["textname"];
+    $email = $_POST["textemail"];
+    $contacto = $_POST["contacto"];
+    $endereco =$_POST["textendereco"];
+    $curso = $_POST["textcurso"];
+
+
+    if($nome != "" && $email !="" && $contacto !="" && $endereco !="" && $curso !=""){
+
+    $insert = $pdo->prepare("insert into  tbl_estudantes (nome, email, telefone, endereco, curso) values(:nome, :email, :contacto, :endereco, :curso)");
+
+    $insert->bindParam(':nome', $nome);
+    $insert->bindParam(':email', $email);
+    $insert->bindParam(':contacto', $contacto);
+    $insert->bindParam(':endereco', $endereco);
+    $insert->bindParam(':curso', $curso);
+
+
+
+   if( $insert = $insert->execute()){
+      echo "Registado com sucesso";
+   }else{
+      echo "Erro ao registar";
+   }
+
+    }else{
+    echo "Campos Vasios";
+    }
+
+    
+  }
+      
+  
 
 ?>
 
@@ -24,7 +59,7 @@ session_start();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <link rel="stylesheet" href="dashboard.css">
-  <title>Dashboard</title>
+  <title>Registar de estudantes</title>
 </head>
 
 <body>
@@ -63,20 +98,50 @@ session_start();
     </div>
   </nav>
 
-  <div class="container mx-auto conteudo">
-    <h1>GERENCIAMENTO DE ESTUDANTES</h1>
-    <div class="btns">
-      <button class="cadastro">
-        <a href="registrar.php">Registrar</a></button>
-      <button class="pesuisa"><a href="pesquisar.php">Pesquisar estudante</a></button>
-    </div>
-  </div>
+  <div class="container formulario">
+    <form action method="POST">
+      <div class="form-group">
+        <label for="inputName">Nome</label>
+        <input type="text" class="form-control" id="inputName" name="textname" placeholder="Insira o nome do estudante">
+      </div>
+      <div class="form-group">
+        <label for="inputEmail">Email</label>
+        <input type="email" class="form-control" id="inputEmail" name="textemail"
+          placeholder="Insira o email do estudante">
+      </div>
+      <div class="form-group">
+        <label for="inputPhone">Telefone</label>
+        <input type="text" class="form-control" id="inputPhone" maxlength="9" pattern="[0-9]+"
+          placeholder="Insira o telefone do estudante" name="contacto">
+      </div>
+      <div class="form-group">
+        <label for="inputAddress">Endereço</label>
+        <input type="text" class="form-control" id="inputAddress" name="textendereco"
+          placeholder="Insira o endereço do estudante">
+      </div>
+      <div class="form-group">
+        <label for="inputCourse">Curso</label>
+        <input type="text" class="form-control" id="inputCourse" name="textcurso"
+          placeholder="Insira o curso do estudante">
+      </div>
+      <button type="submit" class="btn btn-primary" name="btncadastrar">Cadastrar</button>
+    </form>
 
+
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
     integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous">
+  </script>
+
+  <script>
+  var phoneInput = document.getElementById("inputPhone");
+
+  phoneInput.addEventListener("input", function() {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
   </script>
 </body>
 

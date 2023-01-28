@@ -8,15 +8,17 @@ session_start();
 
     $email = $_POST['email'];
     $password = $_POST['password'];
-
-  $select = $pdo->prepare("select * from tbl_user where email='$email' and password='$password'");
+    $username = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+  $select = $pdo->prepare("select * from tbl_user where email='$email' AND password='$password'");
 
   $select->execute();
 
-  $row = $select->fetch(PDO::FETCH_ASSOC);
+  $row = $select->fetch();
 
 
-  if ($row['email'] == $email and $row['password'] == $password and $row['nivel']=="Admin"){
+  if ($row['email'] == $email AND $row['password'] == $password AND $row['nivel']=="Admin"){
 
     $_SESSION['id'] =$row ['id'];
     $_SESSION['nome'] =$row ['id'];
@@ -24,10 +26,12 @@ session_start();
     $_SESSION['password'] =$row ['password'];
     $_SESSION['nivel'] =$row ['nivel'];
 
+    echo "<script src='https://cdn.jsdelivr.net/npm/notifyjs@3.1.0/notify.min.js'></script>";
+    echo "<script>$.notify('Autenticação realizada com sucesso!', {className: 'success', position: 'top center'});</script>";
     header('refresh:1;dashboard.php');
   }
 
-  else if($row['email'] == $email and $row['password'] == $password and $row['nivel']=="User"){
+  else if($row['email'] == $email AND $row['password'] == $password AND $row['nivel']=="User"){
     $_SESSION['id'] =$row ['id'];
     $_SESSION['nome'] =$row ['id'];
     $_SESSION['email'] =$row ['email'];
@@ -38,6 +42,8 @@ session_start();
     header('refresh:1;user.php');
   
 
+  }else{
+    echo "Usuario incorrecto";
   }
 
   }
@@ -52,10 +58,13 @@ session_start();
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="sweetalert2.min.css">
   <title>Academy</title>
 </head>
 
@@ -79,7 +88,6 @@ session_start();
 
     </div>
   </div>
-
 </body>
 
 </html>
